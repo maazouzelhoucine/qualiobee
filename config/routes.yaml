@@ -1,5 +1,11 @@
 controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
+    resource: '../src/Controller/'
     type: attribute
+
+api_register:
+    path: /api/register
+    controller: App\Controller\RegistrationController::register
+    methods: POST
+api_login:
+    path: /authentication_token
+    controller: Lexik\Bundle\JWTAuthenticationBundle\Controller\AuthenticationController::getToken

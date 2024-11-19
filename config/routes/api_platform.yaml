@@ -1,4 +1,7 @@
+# config/packages/api_platform.yaml
+
 api_platform:
+    # Automatically include all API resources from the current directory
     resource: .
     type: api_platform
     prefix: /api
