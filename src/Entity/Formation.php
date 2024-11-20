@@ -9,7 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 
-#[ApiResource]
+#[ApiResource(formats: ['json' => 'application/json'])]
 #[ORM\Entity(repositoryClass: FormationRepository::class)]
 class Formation
 {
@@ -75,6 +75,18 @@ class Formation
     #[ORM\Column(length: 255)]
     private ?string $status = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $bannerImgUrl = null;
+
+    #[ORM\ManyToOne(inversedBy: 'formations')]
+    private ?Category $category = null;
+
+    /**
+     * @var Collection<int, Demande>
+     */
+    #[ORM\OneToMany(targetEntity: Demande::class, mappedBy: 'formation', orphanRemoval: true)]
+    private Collection $demandes;
+
     public function __construct()
     {
         $this->documents = new ArrayCollection();
@@ -84,6 +96,7 @@ class Formation
         $this->modules = new ArrayCollection();
         $this->objectifs = new ArrayCollection();
         $this->seances = new ArrayCollection();
+        $this->demandes = new ArrayCollection();
     }
 
 
@@ -363,6 +376,60 @@ class Formation
     public function setStatus(string $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getBannerImgUrl(): ?string
+    {
+        return $this->bannerImgUrl;
+    }
+
+    public function setBannerImgUrl(?string $bannerImgUrl): static
+    {
+        $this->bannerImgUrl = $bannerImgUrl;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Demande>
+     */
+    public function getDemandes(): Collection
+    {
+        return $this->demandes;
+    }
+
+    public function addDemande(Demande $demande): static
+    {
+        if (!$this->demandes->contains($demande)) {
+            $this->demandes->add($demande);
+            $demande->setFormation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDemande(Demande $demande): static
+    {
+        if ($this->demandes->removeElement($demande)) {
+            // set the owning side to null (unless already changed)
+            if ($demande->getFormation() === $this) {
+                $demande->setFormation(null);
+            }
+        }
 
         return $this;
     }
