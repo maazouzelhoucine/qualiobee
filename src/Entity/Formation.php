@@ -75,6 +75,12 @@ class Formation
     #[ORM\Column(length: 255)]
     private ?string $status = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $bannerImgUrl = null;
+
+    #[ORM\ManyToOne(inversedBy: 'formations')]
+    private ?Category $category = null;
+
     public function __construct()
     {
         $this->documents = new ArrayCollection();
@@ -363,6 +369,30 @@ class Formation
     public function setStatus(string $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getBannerImgUrl(): ?string
+    {
+        return $this->bannerImgUrl;
+    }
+
+    public function setBannerImgUrl(?string $bannerImgUrl): static
+    {
+        $this->bannerImgUrl = $bannerImgUrl;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }
