@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block javascripts %}
+    <script>
+        async function handleRegister(event) {
+            event.preventDefault();
+            const response = await fetch('/api/register/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/ld+json',
+                    'Accept': 'application/ld+json'
+                },
+                body: JSON.stringify({
+                    email: document.getElementById('reg-email').value,
+                    password: document.getElementById('reg-password').value
+                })
+            });
+            
+            if (response.ok) {
+                window.location.href = '/login';
+            }
+        }
+    </script>
+{% endblock %}
+
+{% block body %}
+    <div class="register-container">
+        <form onsubmit="handleRegister(event)">
+            <h1>Register for Qualiobee</h1>
+            <input type="email" id="reg-email" required>
+            <input type="password" id="reg-password" required>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+{% endblock %}
