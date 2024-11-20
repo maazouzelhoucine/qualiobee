@@ -81,6 +81,12 @@ class Formation
     #[ORM\ManyToOne(inversedBy: 'formations')]
     private ?Category $category = null;
 
+    /**
+     * @var Collection<int, Demande>
+     */
+    #[ORM\OneToMany(targetEntity: Demande::class, mappedBy: 'formation', orphanRemoval: true)]
+    private Collection $demandes;
+
     public function __construct()
     {
         $this->documents = new ArrayCollection();
@@ -90,6 +96,7 @@ class Formation
         $this->modules = new ArrayCollection();
         $this->objectifs = new ArrayCollection();
         $this->seances = new ArrayCollection();
+        $this->demandes = new ArrayCollection();
     }
 
 
@@ -393,6 +400,36 @@ class Formation
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Demande>
+     */
+    public function getDemandes(): Collection
+    {
+        return $this->demandes;
+    }
+
+    public function addDemande(Demande $demande): static
+    {
+        if (!$this->demandes->contains($demande)) {
+            $this->demandes->add($demande);
+            $demande->setFormation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDemande(Demande $demande): static
+    {
+        if ($this->demandes->removeElement($demande)) {
+            // set the owning side to null (unless already changed)
+            if ($demande->getFormation() === $this) {
+                $demande->setFormation(null);
+            }
+        }
 
         return $this;
     }

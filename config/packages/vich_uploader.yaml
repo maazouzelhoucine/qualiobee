@@ -5,4 +5,10 @@ vich_uploader:
             uri_prefix: /uploads/documents
             upload_destination: '%kernel.project_dir%/public/uploads/documents'
 
-       
+        video_files:
+            uri_prefix: /uploads/videos
+            upload_destination: '%kernel.project_dir%/public/uploads/videos'
+                
+        images_files:
+            uri_prefix: /uploads/images
+            upload_destination: '%kernel.project_dir%/public/uploads/images'
