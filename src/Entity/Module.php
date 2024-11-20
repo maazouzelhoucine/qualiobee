@@ -7,7 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 
-#[ApiResource]
+#[ApiResource(formats: ['json' => 'application/json'])]
 #[ORM\Entity(repositoryClass: ModuleRepository::class)]
 class Module
 {

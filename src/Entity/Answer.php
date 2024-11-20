@@ -6,7 +6,7 @@ use App\Repository\AnswerRepository;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 
-#[ApiResource]
+#[ApiResource(formats: ['json' => 'application/json'])]
 #[ORM\Entity(repositoryClass: AnswerRepository::class)]
 class Answer
 {

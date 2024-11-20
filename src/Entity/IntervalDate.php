@@ -6,7 +6,7 @@ use App\Repository\IntervalDateRepository;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 
-#[ApiResource]
+#[ApiResource(formats: ['json' => 'application/json'])]
 #[ORM\Entity(repositoryClass: IntervalDateRepository::class)]
 class IntervalDate
 {

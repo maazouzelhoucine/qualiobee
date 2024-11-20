@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ApiResource]
+#[ApiResource(formats: ['json' => 'application/json'])]
 #[ORM\Entity(repositoryClass: QuizzRepository::class)]
 class Quizz
 {
