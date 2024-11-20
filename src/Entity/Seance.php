@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SeanceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
@@ -30,6 +32,34 @@ class Seance
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $created_at = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $type = null;
+
+    #[ORM\ManyToOne(inversedBy: 'seances')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Formation $formation = null;
+
+    /**
+     * @var Collection<int, Module>
+     */
+    #[ORM\OneToMany(targetEntity: Module::class, mappedBy: 'seance')]
+    private Collection $modules;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $place = null;
+
+    /**
+     * @var Collection<int, IntervalDate>
+     */
+    #[ORM\OneToMany(targetEntity: IntervalDate::class, mappedBy: 'seance')]
+    private Collection $intervalDate;
+
+    public function __construct()
+    {
+        $this->modules = new ArrayCollection();
+        $this->intervalDate = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -92,6 +122,102 @@ class Seance
     public function setCreatedAt(?\DateTimeImmutable $created_at): static
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): static
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getFormation(): ?Formation
+    {
+        return $this->formation;
+    }
+
+    public function setFormation(?Formation $formation): static
+    {
+        $this->formation = $formation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Module>
+     */
+    public function getModules(): Collection
+    {
+        return $this->modules;
+    }
+
+    public function addModule(Module $module): static
+    {
+        if (!$this->modules->contains($module)) {
+            $this->modules->add($module);
+            $module->setSeance($this);
+        }
+
+        return $this;
+    }
+
+    public function removeModule(Module $module): static
+    {
+        if ($this->modules->removeElement($module)) {
+            // set the owning side to null (unless already changed)
+            if ($module->getSeance() === $this) {
+                $module->setSeance(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPlace(): ?string
+    {
+        return $this->place;
+    }
+
+    public function setPlace(?string $place): static
+    {
+        $this->place = $place;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, IntervalDate>
+     */
+    public function getIntervalDate(): Collection
+    {
+        return $this->intervalDate;
+    }
+
+    public function addIntervalDate(IntervalDate $intervalDate): static
+    {
+        if (!$this->intervalDate->contains($intervalDate)) {
+            $this->intervalDate->add($intervalDate);
+            $intervalDate->setSeance($this);
+        }
+
+        return $this;
+    }
+
+    public function removeIntervalDate(IntervalDate $intervalDate): static
+    {
+        if ($this->intervalDate->removeElement($intervalDate)) {
+            // set the owning side to null (unless already changed)
+            if ($intervalDate->getSeance() === $this) {
+                $intervalDate->setSeance(null);
+            }
+        }
 
         return $this;
     }

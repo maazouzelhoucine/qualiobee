@@ -32,6 +32,9 @@ class Quizz
     #[ORM\ManyToOne(inversedBy: 'quizzs')]
     private ?CourseSession $courseSession = null;
 
+    #[ORM\ManyToOne(inversedBy: 'quizzs')]
+    private ?Formation $formation = null;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();
@@ -104,6 +107,18 @@ class Quizz
     public function setCourseSession(?CourseSession $courseSession): static
     {
         $this->courseSession = $courseSession;
+
+        return $this;
+    }
+
+    public function getFormation(): ?Formation
+    {
+        return $this->formation;
+    }
+
+    public function setFormation(?Formation $formation): static
+    {
+        $this->formation = $formation;
 
         return $this;
     }

@@ -33,7 +33,7 @@ class Document
     private ?File $file = null;
 
     #[ORM\ManyToOne(inversedBy: 'documents')]
-    private ?CourseSession $courseSession = null;
+    private ?Formation $formation = null;
 
     // Getter and setter for file
 
@@ -78,15 +78,16 @@ class Document
         }
     }
 
-    public function getCourseSession(): ?CourseSession
+    public function getFormation(): ?Formation
     {
-        return $this->courseSession;
+        return $this->formation;
     }
 
-    public function setCourseSession(?CourseSession $courseSession): static
+    public function setFormation(?Formation $formation): static
     {
-        $this->courseSession = $courseSession;
+        $this->formation = $formation;
 
         return $this;
     }
+
 }

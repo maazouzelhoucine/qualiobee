@@ -32,6 +32,9 @@ class Workflow
     #[ORM\OneToOne(mappedBy: 'workflow', cascade: ['persist', 'remove'])]
     private ?CourseSession $courseSession = null;
 
+    #[ORM\OneToOne(mappedBy: 'workflow', cascade: ['persist', 'remove'])]
+    private ?Formation $formation = null;
+
     public function __construct()
     {
         $this->seances = new ArrayCollection();
@@ -114,6 +117,28 @@ class Workflow
         }
 
         $this->courseSession = $courseSession;
+
+        return $this;
+    }
+
+    public function getFormation(): ?Formation
+    {
+        return $this->formation;
+    }
+
+    public function setFormation(?Formation $formation): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($formation === null && $this->formation !== null) {
+            $this->formation->setWorkflow(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($formation !== null && $formation->getWorkflow() !== $this) {
+            $formation->setWorkflow($this);
+        }
+
+        $this->formation = $formation;
 
         return $this;
     }
