@@ -1,14 +1,76 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to Qualiobee</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+    <!-- Google Font (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
-{% block javascripts %}
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Main Login Container -->
+    <div class="min-h-screen bg-gray-100 flex items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full sm:w-96">
+            <!-- Login Form Header -->
+            <h1 class="text-2xl font-semibold text-center mb-6 text-gray-800">Login to Qualiobee</h1>
+            
+            <!-- Login Form -->
+            <form onsubmit="handleLogin(event)">
+                <!-- Email Input -->
+                <div class="mb-4">
+                    <label for="email" class="block text-gray-700 text-sm font-medium mb-2">Email Address</label>
+                    <input type="email" id="email" required
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+                
+                <!-- Password Input -->
+                <div class="mb-6">
+                    <label for="password" class="block text-gray-700 text-sm font-medium mb-2">Password</label>
+                    <input type="password" id="password" required
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+                
+                <!-- Remember Me Checkbox & Forgot Password Link -->
+                <div class="flex justify-between items-center mb-6">
+                    <label class="inline-flex items-center text-sm text-gray-600">
+                        <input type="checkbox" class="form-checkbox" /> 
+                        <span class="ml-2">Remember me</span>
+                    </label>
+                    <a href="#" class="text-sm text-blue-500 hover:underline">Forgot password?</a>
+                </div>
+
+                <!-- Sign In Button -->
+                <button type="submit" class="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Sign in</button>
+            </form>
+
+            <!-- Sign Up Link -->
+            <div class="mt-6 text-center">
+                <p class="text-sm text-gray-600">Don't have an account? <a href="#" class="text-blue-500 hover:underline">Sign up</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for handling login -->
     <script>
         async function handleLogin(event) {
             event.preventDefault();
-            const response = await fetch('/api/login', {
+            const response = await fetch('/authentication_token', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/ld+json',
-                    'Accept': 'application/ld+json'
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
                     email: document.getElementById('email').value,
@@ -23,15 +85,5 @@
             }
         }
     </script>
-{% endblock %}
-
-{% block body %}
-    <div class="login-container">
-        <form onsubmit="handleLogin(event)">
-            <h1>Login to Qualiobee</h1>
-            <input type="email" id="email" required>
-            <input type="password" id="password" required>
-            <button type="submit">Sign in</button>
-        </form>
-    </div>
-{% endblock %}
+</body>
+</html>

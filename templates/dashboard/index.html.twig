@@ -1,38 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block javascripts %}
-    <script>
-        // Check authentication on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                window.location.href = '/login';
-            }
-        });
 
-        // Add token to all API requests
-        function fetchWithAuth(url, options = {}) {
-            const token = localStorage.getItem('token');
-            return fetch(url, {
-                ...options,
-                headers: {
-                    ...options.headers,
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-        }
-    </script>
-{% endblock %}
 
-{% block body %}
-    <div class="dashboard-container">
-        <header>
-            <h1>Welcome to Qualiobee Dashboard</h1>
-            <button onclick="logout()">Logout</button>
-        </header>
-        
-        <main>
-            <!-- Your dashboard content here -->
-        </main>
-    </div>
-{% endblock %}
+

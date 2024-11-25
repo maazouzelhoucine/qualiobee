@@ -1,35 +1,78 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register for Qualiobee</title>
 
-{% block javascripts %}
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <!-- Google Font (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Main Registration Container -->
+    <div class="min-h-screen bg-gray-100 flex items-center justify-center">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full sm:w-96">
+            <!-- Registration Form Header -->
+            <h1 class="text-2xl font-semibold text-center mb-6 text-gray-800">Register for Qualiobee</h1>
+
+            <!-- Registration Form -->
+            <form onsubmit="handleRegister(event)">
+                <!-- Email Input -->
+                <div class="mb-4">
+                    <label for="reg-email" class="block text-gray-700 text-sm font-medium mb-2">Email Address</label>
+                    <input type="email" id="reg-email" required
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+
+                <!-- Password Input -->
+                <div class="mb-6">
+                    <label for="reg-password" class="block text-gray-700 text-sm font-medium mb-2">Password</label>
+                    <input type="password" id="reg-password" required
+                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                </div>
+
+                <!-- Register Button -->
+                <button type="submit" class="w-full py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Register</button>
+            </form>
+
+            <!-- Login Redirect Link -->
+            <div class="mt-6 text-center">
+                <p class="text-sm text-gray-600">Already have an account? <a href="/login" class="text-blue-500 hover:underline">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for handling registration -->
     <script>
         async function handleRegister(event) {
             event.preventDefault();
-            const response = await fetch('/api/register/users', {
+            const response = await fetch('/api/users', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/ld+json',
-                    'Accept': 'application/ld+json'
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
                     email: document.getElementById('reg-email').value,
-                    password: document.getElementById('reg-password').value
+                    plainPassword: document.getElementById('reg-password').value
                 })
             });
-            
+
             if (response.ok) {
                 window.location.href = '/login';
             }
         }
     </script>
-{% endblock %}
-
-{% block body %}
-    <div class="register-container">
-        <form onsubmit="handleRegister(event)">
-            <h1>Register for Qualiobee</h1>
-            <input type="email" id="reg-email" required>
-            <input type="password" id="reg-password" required>
-            <button type="submit">Register</button>
-        </form>
-    </div>
-{% endblock %}
+</body>
+</html>
