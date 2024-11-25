@@ -1,0 +1,249 @@
+
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<div class="flex-1 p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h1 class="text-2xl font-semibold">Liste des sessions</h1>
+                    <button class="bg-black text-white px-4 py-2 rounded-full" onclick="openPopup()">+ Créer une nouvelle session</button>
+
+                </div>
+                <div class="flex items-center mb-4">
+                    <input type="text" placeholder="Rechercher une session" class="flex-1 p-2 border rounded-lg">
+                    <button class="ml-4 px-4 py-2 bg-gray-200 rounded-lg">Filtres</button>
+                </div>
+                <div class="flex items-center mb-4">
+                    <button id="calendar-tab" class="px-4 py-2 rounded-lg bg-gray-200" onclick=showCalendar()>Calendrier des sessions</button>
+                    <button id="list-tab" class="ml-4 px-4 py-2 rounded-lg bg-black text-white" onclick=showList()>Liste des sessions</button>
+                </div>
+                <div id="list-view" class="space-y-4">
+                    <!-- Session Card -->
+                    <div class="bg-white p-4 rounded-lg shadow-md">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h2 class="text-lg font-semibold">Utiliser l'outil Qualiobee à son plein potentiel</h2>
+                                <div class="flex items-center space-x-2 mt-2">
+                                    <span class="text-gray-500 flex items-center"><i class="fas fa-user w-4"></i> Aucun client</span>
+                                    <span class="text-gray-500 flex items-center"><i class="fas fa-users w-4"></i> Aucun participant</span>
+                                    <span class="text-gray-500 flex items-center"><i class="fas fa-calendar-alt w-4"></i> Aucune séance</span>
+                                </div>
+                                <div class="flex items-center space-x-2 mt-2">
+                                    <span class="text-gray-500 flex items-center"><i class="fas fa-user-tie w-4"></i> Aucun formateur</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="bg-red-100 text-red-700 px-2 py-1 rounded-full">Incomplète</span>
+                                <span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">Factice</span>
+                            </div>
+                            <div class="text-right">
+                                <div class="bg-gray-100 p-2 rounded-lg">
+                                    <div class="text-gray-500">DÉBUT</div>
+                                    <div>01/01/70 00:00</div>
+                                </div>
+                                <div class="bg-gray-100 p-2 rounded-lg mt-2">
+                                    <div class="text-gray-500">FIN</div>
+                                    <div>01/01/70 00:00</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Repeat Session Card for other sessions -->
+                    <div class="bg-white p-4 rounded-lg shadow-md">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h2 class="text-lg font-semibold">Test2</h2>
+                                <div class="flex items-center space-x-2 mt-2">
+                                    <span class="text-gray-500 flex items-center"><i class="fas fa-user w-4"></i> Aucun client</span>
+                                    <span class="text-gray-500 flex items-center"><i class="fas fa-users w-4"></i> Aucun participant</span>
+                                    <span class="text-gray-500 flex items-center"><i class="fas fa-calendar-alt w-4"></i> Aucune séance</span>
+                                </div>
+                                <div class="flex items-center space-x-2 mt-2">
+                                    <span class="text-gray-500 flex items-center"><i class="fas fa-user-tie w-4"></i> Aucun formateur</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="bg-red-100 text-red-700 px-2 py-1 rounded-full">Incomplète</span>
+                                <span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">Factice</span>
+                            </div>
+                            <div class="text-right">
+                                <div class="bg-gray-100 p-2 rounded-lg">
+                                    <div class="text-gray-500">DÉBUT</div>
+                                    <div>01/01/70 00:00</div>
+                                </div>
+                                <div class="bg-gray-100 p-2 rounded-lg mt-2">
+                                    <div class="text-gray-500">FIN</div>
+                                    <div>01/01/70 00:00</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <h2 class="text-lg font-semibold">Session une</h2>
+                                <div class="flex items-center space-x-2 mt-2">
+                                    <span class="text-gray-500 flex items-center"><i class="fas fa-user w-4"></i> Aucun client</span>
+                                    <span class="text-gray-500 flex items-center"><i class="fas fa-users w-4"></i> Aucun participant</span>
+                                    <span class="text-gray-500 flex items-center"><i class="fas fa-calendar-alt w-4"></i> Aucune séance</span>
+                                </div>
+                                <div class="flex items-center space-x-2 mt-2">
+                                    <span class="text-gray-500 flex items-center"><i class="fas fa-user-tie w-4"></i> Aucun formateur</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="bg-red-100 text-red-700 px-2 py-1 rounded-full">Incomplète</span>
+                                <span class="bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">Factice</span>
+                            </div>
+                            <div class="text-right">
+                                <div class="bg-gray-100 p-2 rounded-lg">
+                                    <div class="text-gray-500">DÉBUT</div>
+                                    <div>01/01/70 00:00</div>
+                                </div>
+                                <div class="bg-gray-100 p-2 rounded-lg mt-2">
+                                    <div class="text-gray-500">FIN</div>
+                                    <div>01/01/70 00:00</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add more session cards as needed -->
+                </div>
+                <div id="calendar-view" class="hidden">
+                    <div class="calendar">
+                        <div>Lun</div>
+                        <div>Mar</div>
+                        <div>Mer</div>
+                        <div>Jeu</div>
+                        <div>Ven</div>
+                        <div>Sam</div>
+                        <div>Dim</div>
+                        <!-- Example of calendar days with events -->
+                        <div>1</div>
+                        <div>2</div>
+                        <div>3</div>
+                        <div>4</div>
+                        <div>5</div>
+                        <div>6</div>
+                        <div>7</div>
+                        <div>8</div>
+                        <div>9</div>
+                        <div>10</div>
+                        <div>11</div>
+                        <div>12</div>
+                        <div>13</div>
+                        <div>14</div>
+                        <div>15</div>
+                        <div>16</div>
+                        <div>17</div>
+                        <div>18</div>
+                        <div>19</div>
+                        <div>20</div>
+                        <div>21</div>
+                        <div>22</div>
+                        <div>23</div>
+                        <div>24</div>
+                        <div>25</div>
+                        <div>26</div>
+                        <div>27</div>
+                        <div>28</div>
+                        <div>29</div>
+                        <div>30</div>
+                        <div>31</div>
+                    </div>
+                </div>
+            </div>
+            <div id="popup" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 hidden">
+        <div class="bg-white rounded-lg shadow-lg w-1/3">
+            <div class="flex justify-between items-center p-4 border-b">
+                <h2 class="text-lg font-semibold">Sélection d'une formation</h2>
+                <button class="text-gray-500 hover:text-gray-700" onclick="closePopup()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="p-4">
+                <div class="relative mb-4">
+                    <input type="text" placeholder="Rechercher une formation" class="w-full p-2 pl-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                </div>
+                <div class="space-y-4">
+                    <div class="p-4 border rounded-lg">
+                        <div class="flex items-center space-x-2 mb-2">
+                            <span class="flex items-center space-x-1 text-green-500">
+                                <i class="fas fa-circle text-xs"></i>
+                                <span>Complète</span>
+                            </span>
+                            <span class="flex items-center space-x-1 text-yellow-500">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <span>Factice</span>
+                            </span>
+                        </div>
+                        <h3 class="font-semibold">Utiliser l'outil Qualiobee à son plein potentiel</h3>
+                        <p class="text-gray-500">La formation Utiliser l'outil Qualiobee à son plein potentiel est conçue pour fournir aux formateurs les compétences et ...</p>
+                    </div>
+                    <div class="p-4 border rounded-lg">
+                        <div class="flex items-center space-x-2 mb-2">
+                            <span class="flex items-center space-x-1 text-green-500">
+                                <i class="fas fa-circle text-xs"></i>
+                                <span>Complète</span>
+                            </span>
+                            <span class="flex items-center space-x-1 text-yellow-500">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <span>Factice</span>
+                            </span>
+                        </div>
+                        <h3 class="font-semibold">Test2</h3>
+                        <p class="text-gray-500">La formation Utiliser l'outil Qualiobee à son plein potentiel est conçue pour fournir aux formateurs les compétences et ...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-end p-4 border-t">
+                <button class="px-4 py-2 bg-gray-300 text-gray-700 rounded-lg mr-2" onclick="closePopup()">Annuler</button>
+                <button class="px-4 py-2 bg-gray-500 text-white rounded-lg">Créer</button>
+            </div>
+        </div>
+    </div>
+    
+    {% block javascripts %}
+
+    <script>
+     
+    // Your JavaScript functions here
+    
+    function showCalendar() {
+        document.getElementById('list-view').classList.add('hidden');
+        document.getElementById('calendar-view').classList.remove('hidden');
+        document.getElementById('calendar-tab').classList.add('bg-black', 'text-white');
+        document.getElementById('calendar-tab').classList.remove('bg-gray-200');
+        document.getElementById('list-tab').classList.remove('bg-black', 'text-white');
+        document.getElementById('list-tab').classList.add('bg-gray-200');
+    };
+
+    function showList() {
+        document.getElementById('list-view').classList.remove('hidden');
+        document.getElementById('calendar-view').classList.add('hidden');
+        document.getElementById('list-tab').classList.add('bg-black', 'text-white');
+        document.getElementById('list-tab').classList.remove('bg-gray-200');
+        document.getElementById('calendar-tab').classList.remove('bg-black', 'text-white');
+        document.getElementById('calendar-tab').classList.add('bg-gray-200');
+    };
+
+    function openPopup() {
+        document.getElementById('popup').classList.remove('hidden');
+    };
+
+    function closePopup() {
+        document.getElementById('popup').classList.add('hidden');
+    };
+
+    // Add event listeners for buttons
+    document.getElementById('calendar-tab').addEventListener('click', showCalendar);
+    document.getElementById('list-tab').addEventListener('click', showList);
+
+
+    </script>
+
+    {% endblock %}
+   
+     {% endblock %}
+
+   
